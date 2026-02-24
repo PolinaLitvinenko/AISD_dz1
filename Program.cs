@@ -4,55 +4,52 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AISD_dz1
+namespace AISD_dz2
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Введите количество массивов");
-            int k = IntInput();
-            int[][] arr = new int[k][];
-            for (int i = 0; i < k; i++)
+            Console.Write("Введи числа через пробел");
+            Console.WriteLine();
+            string s = StrInput();
+            string[] num = s.Split(' ');
+            List<string> strNumbers = new List<string>();
+            for (int i = 0; i < num.Length; i++)
             {
-                Console.WriteLine("Введите числа через пробел в отсортированном порядке");
-                string s = StrInput();
-                string[] numbers = s.Split(' ');
-                arr[i] = new int[numbers.Length];
-                for (int j = 0; j < numbers.Length; j++)
-                {
-                    arr[i][j] = int.Parse(numbers[j]);
-                }
+                strNumbers.Add(num[i]);
             }
-
-            int[] p = new int[arr.Length];
-            List<int> result = new List<int>();
-            while (true)
+            for (int i = 0; i < strNumbers.Count - 1; i++)
             {
-                int minValue = int.MaxValue;
-                int minArrayIndex = -1;
-                for (int i = 0; i < arr.Length; i++)
+                for (int j = i + 1; j < strNumbers.Count; j++)
                 {
-                    if (p[i] < arr[i].Length)
+                    string a = strNumbers[i];
+                    string b = strNumbers[j];
+                    string ab = a + b;
+                    string ba = b + a;
+                    if (string.Compare(ba, ab) > 0)
                     {
-                        int currentValue = arr[i][p[i]];
-                        if (currentValue < minValue)
-                        {
-                            minValue = currentValue;
-                            minArrayIndex = i;
-                        }
+                        strNumbers[i] = b;
+                        strNumbers[j] = a;
                     }
                 }
-                if (minArrayIndex == -1)
-                    break;
-                result.Add(minValue);
-                p[minArrayIndex]++;
             }
-
-            Console.WriteLine(string.Join(" ", result));
-
-
+            if (strNumbers[0] == "0")
+            {
+                Console.WriteLine();
+                Console.WriteLine("Наибольшее число: 0");
+                return;
+            }
+            string result = "";
+            for (int i = 0; i < strNumbers.Count; i++)
+            {
+                result += strNumbers[i];
+            }
+            Console.WriteLine();
+            Console.WriteLine("Наибольшее число: " + result);
         }
+
+
         static int IntInput()
         {
             while (true)
@@ -83,6 +80,5 @@ namespace AISD_dz1
                 }
             }
         }
-    }
     }
 }
