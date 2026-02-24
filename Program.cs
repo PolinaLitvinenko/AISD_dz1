@@ -10,6 +10,47 @@ namespace AISD_dz2
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("1 задание");
+            Console.WriteLine("Введите количество массивов");
+            int k = IntInput();
+            int[][] arr = new int[k][];
+            for (int i = 0; i < k; i++)
+            {
+                Console.WriteLine("Введите числа через пробел в отсортированном порядке");
+                string s1 = StrInput();
+                string[] numbers = s1.Split(' ');
+                arr[i] = new int[numbers.Length];
+                for (int j = 0; j < numbers.Length; j++)
+                {
+                    arr[i][j] = int.Parse(numbers[j]);
+                }
+            }
+
+            int[] p = new int[arr.Length];
+            List<int> result = new List<int>();
+            while (true)
+            {
+                int minValue = int.MaxValue;
+                int minArrayIndex = -1;
+                for (int i = 0; i < arr.Length; i++)
+                {
+                    if (p[i] < arr[i].Length)
+                    {
+                        int currentValue = arr[i][p[i]];
+                        if (currentValue < minValue)
+                        {
+                            minValue = currentValue;
+                            minArrayIndex = i;
+                        }
+                    }
+                }
+                if (minArrayIndex == -1)
+                    break;
+                result.Add(minValue);
+                p[minArrayIndex]++;
+            }
+            Console.WriteLine(string.Join(" ", result));
+            Console.WriteLine("2 задание");
             Console.Write("Введи числа через пробел");
             Console.WriteLine();
             string s = StrInput();
@@ -40,13 +81,14 @@ namespace AISD_dz2
                 Console.WriteLine("Наибольшее число: 0");
                 return;
             }
-            string result = "";
+            string result2 = "";
             for (int i = 0; i < strNumbers.Count; i++)
             {
-                result += strNumbers[i];
+                result2 += strNumbers[i];
             }
             Console.WriteLine();
-            Console.WriteLine("Наибольшее число: " + result);
+            Console.WriteLine("Наибольшее число: " + result2);
+
         }
 
 
